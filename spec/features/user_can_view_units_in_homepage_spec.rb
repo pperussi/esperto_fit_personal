@@ -9,7 +9,7 @@ feature 'Customer view all available units' do
     
     #Act
     login_as(customer, scope: :account)
-    visit root_path
+    visit units_path
     
     #Assert
     expect(page).to have_content('Academia 01')
@@ -23,21 +23,17 @@ feature 'Customer view all available units' do
     profile = create(:profile, account: customer, first_name: 'Joao')
     login_as(customer, scope: :account)
 
-    visit root_path
-    within('div.academia-1') do
+    visit units_path
+    within(".academia-#{unit.id}") do
       click_on 'Cadastrar Nesta Unidade'
     end
-    #byebug
-    within('div.academia-1') do
+    # byebug
+    within(".academia-#{unit.id}") do
       expect(page).to have_content('Está é a sua Unidade')
       expect(page).not_to have_link('Cadastrar Nesta Unidade')
     end
     
-    within('div.academia-2') do
-      expect(page).to have_link('Mudar para esta unidade')
-      expect(page).not_to have_link('Cadastrar Nesta Unidade')
-    end
-    within('div.academia-3') do
+    within(".academia-#{(unit.id)+1}") do    
       expect(page).to have_link('Mudar para esta unidade')
       expect(page).not_to have_link('Cadastrar Nesta Unidade')
     end

@@ -31,7 +31,6 @@ feature 'Customer can register into system' do
     #Act
     login_as customer, scope: :account
     visit root_path
-    save_page
     fill_in 'Nome', with: 'Mauricio'
     fill_in 'Sobrenome', with: 'Oliveira'
     fill_in 'Endereço', with: 'Av Paulista, 374'

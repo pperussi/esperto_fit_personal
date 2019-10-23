@@ -7,6 +7,6 @@ class CustomersController < ApplicationController
       unit = Unit.find(params[:id])
       customer.update(unit: unit)
       flash[:notice] = 'Matricula realizada com sucesso'
-      redirect_to root_path
+      redirect_to units_path
   end
 end

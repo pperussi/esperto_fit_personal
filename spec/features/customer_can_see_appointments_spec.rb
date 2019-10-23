@@ -10,12 +10,13 @@ feature 'Customer can see apppointments' do
     customer = create(:customer, unit: unit)
     account = create(:personal, email: 'teste@email.com', password: '123456', document:'12345678908')
     profile = create(:profile, account: account, first_name: 'Patricia')
+    other_profile = create(:profile, account: customer)
     schedule = create(:schedule, date: '10/09/2019', start: 10, finish: 12, price: "50", personal: account, unit: unit)
     schedule.create_appointments
 
     login_as(customer, scope: :account)
-    visit root_path
-    click_on 'Unidades Disponíveis'
+    visit units_path
+    # save_page
     click_on unit.name
     click_on "Personals na #{unit.name}"
     click_on 'Patricia'
@@ -44,7 +45,7 @@ feature 'Customer can see apppointments' do
 
     #byebug
     login_as(customer_account, scope: :account)
-    visit view_appointment_path(other_unit)
+    visit view_appointment_path(other_schedule)
 
     expect(current_path).to eq root_path
   end

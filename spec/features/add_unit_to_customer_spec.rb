@@ -13,14 +13,14 @@ feature 'Add unit to customer' do
     
     #act
     login_as(user, scope: :account)
-    visit root_path
-    within('div.academia-1') do
+    visit units_path
+    within("div.academia-#{unit.id}") do
       click_on 'Cadastrar Nesta Unidade'
     end
 
     #assert
 
-    within('div.academia-1') do
+    within("div.academia-#{unit.id}") do
       expect(page).to have_content('Está é a sua Unidade')
     end
   end
@@ -33,10 +33,10 @@ feature 'Add unit to customer' do
 
     #Act
     login_as(account, scope: :account)
-    visit root_path
+    visit units_path
 
     #Assert
-    within('div.academia-1') do
+    within("div.academia-#{unit.id}") do
       expect(page).to_not have_link('Cadastrar Nesta Unidade')
     end
   end

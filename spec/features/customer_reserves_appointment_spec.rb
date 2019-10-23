@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 feature 'Customer can reserve an appointment' do
+  before(:each) do
+    list_gyms
+  end
+
   scenario 'with a personal' do
     #Arrange
     unit = create(:unit)
@@ -9,6 +13,7 @@ feature 'Customer can reserve an appointment' do
     schedule = create(:schedule, start: 10, finish: 11, personal: account, unit: unit)
     schedule.create_appointments
     user = create(:customer, unit: unit)
+    other_profile = create(:profile, account: user)
     login_as(user, scope: :account)
 
     #Act
@@ -23,6 +28,8 @@ feature 'Customer can reserve an appointment' do
     expect(page).to have_content('Aula agendada com sucesso!')
 
   end
+
+
   scenario 'and can\'t select taken class' do
     unit = create(:unit)
     account = create(:personal, email: 'teste@email.com', password: '123456')
@@ -30,6 +37,7 @@ feature 'Customer can reserve an appointment' do
     schedule = create(:schedule, start: 10, finish: 12, personal: account, unit: unit)
     schedule.create_appointments
     user = create(:customer, unit: unit)
+    other_profile = create(:profile, account: user)
     cp = CustomerAppointment.find(schedule.appointments[0].id)
     cp.account = user
     cp.save

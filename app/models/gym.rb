@@ -1,6 +1,9 @@
+require 'auth'
+
 class Gym
   attr_reader :id, :cod, :name, :open_hour, :close_hour,
               :working_days, :address, :images
+  URL = 'gyms'
 
   def initialize(**args)
     args.each do |key, value|
@@ -9,9 +12,11 @@ class Gym
   end
 
   def self.all
-    response = EspertoAcademy.client.get do |req|
-      req.url 'gyms'
-    end
+    response = GymRequester.call(url: URL)
+    # response = EspertoAcademy.client.get do |req|
+    #   password = ENV['PASSWORD']
+    #   req.headers['password'] = Auth.issue(password)
+    #   req.url 'gyms'
     return response.body.map { |gym| new(gym) } if response.status == 200
 
     []
@@ -32,8 +37,7 @@ class Gym
     [] 
   end
 
-  def imgs
-    return ['logo_Compact_White.jpg'] unless self.images
-    self.images
+  def ==(other_gym)
+    self.id == other_gym.id
   end
 end

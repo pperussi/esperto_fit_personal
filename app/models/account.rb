@@ -24,9 +24,12 @@ class Account < ApplicationRecord
   end
 
   def banished?
-    response = EspertoAcademy.client.get do |req|
-      req.url "clients/consult_cpf/#{self.document}"
-    end
+    response = GymRequester.call(url: url)
+    # response = EspertoAcademy.client.get do |req|
+    #   password = ENV['PASSWORD']
+    #   req.headers['password'] = Auth.issue(password)
+    #   req.url 
+    #   end
     return false if response.status == 404
 
     response.body[:status] == 'banished'
@@ -38,9 +41,12 @@ class Account < ApplicationRecord
   end
 
   def inactive?
-    response = EspertoAcademy.client.get do |req|
-      req.url "clients/consult_cpf/#{self.document}"
-    end
+    response = GymRequester.call(url: url)
+    # response = EspertoAcademy.client.get do |req|
+    #   password = ENV['PASSWORD']
+    #   req.headers['password'] = Auth.issue(password)
+    #   req.url "clients/consult_cpf/#{self.document}"
+    # end
     return false if response.status == 404
 
     response.body[:status] == 'inactive' 
@@ -48,6 +54,10 @@ class Account < ApplicationRecord
     return false
   rescue Faraday::ParsingError
     return false
+  end
+
+  def url
+    "clients/consult_cpf/#{self.document}"
   end
 
 end

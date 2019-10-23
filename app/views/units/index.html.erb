@@ -1,22 +1,20 @@
 <h2>Unidades Disponíveis</h2>
 
-<% if @units.empty? %>
-  <div class="alert" role="alert">
-    Nenhuma Unidade Disponível no Momento
-  </div>
-<% else %>
-  <% if current_account && current_account.unit %>
-    <div id="current_unit">
-      <span>Sua unidade atual é <%= current_account.unit.name %>.</span>
-    </div>
-  <% end %>
-  <ul>
-  <% @units.each do |unit| %>
-    <% if current_account && current_account.type == "Customer" %>
-      <li><%= link_to unit.name, unit_path(unit) %></li>
-    <% else %>
-      <li><%=  unit.name %></li>
+<% @units.each do |gym|%>
+  <div class=<%= "academia-#{gym.id}"%>>
+    <h4><span><%= link_to gym.name, gym %></span></h4>
+    <p><strong>Endereço: </strong> <%= gym.address %></p>
+    <p><strong>Funcionamento: </strong> de <%= "#{gym.working_days}, das #{gym.open_hour} às #{gym.close_hour}" %></p>
+
+    <% if current_account && current_account.type != 'Personal' %>
+      <% if current_account && current_account.enrollment && current_account.enrollment.unit_id == gym.id %>
+        <p class='btn btn-black btn-sm'> Está é a sua Unidade </p>
+      <% elsif current_account && !(current_account.enrollment == nil) %> 
+        <%= link_to 'Mudar para esta unidade', add_unit_customer_path(gym.id), method: :post, class: "btn btn-black btn-sm" %>
+      <% elsif current_account %>
+        <%= link_to 'Cadastrar Nesta Unidade', add_unit_customer_path(gym.id), method: :post, class: "btn btn-black btn-sm" %>
+      <% end %>
     <% end %>
-  <% end %>
-  </ul>
+  </div>
+  <br>
 <% end %>

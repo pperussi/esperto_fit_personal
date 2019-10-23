@@ -1,14 +1,19 @@
 require 'rails_helper'
 #Corrigir a rota(mudar de Appointment p/ Schedule)
 feature 'Customer can see Personal schedules' do
+  before(:each) do
+    list_gyms
+  end
+
   scenario 'Successfully' do
     #Arrange
     unit = create(:unit)
+    personal = create(:personal, email: 'teste@email.com', password: '123456')
+    personal_profile = create(:profile, account: personal, first_name: 'Patricia')
     customer = create(:customer, unit: unit)
-    account = create(:personal, email: 'teste@email.com', password: '123456')
-    profile = create(:profile, account: account, first_name: 'Patricia')
+    customer_profile = create(:profile, account: customer)
 
-    create(:schedule, date: '2019-10-09', start: 10, finish: 18, price: "50", personal: account, unit: unit)
+    create(:schedule, date: '2019-10-09', start: 10, finish: 18, price: "50", personal: personal, unit: unit)
 
     #Act
     login_as(customer, scope: :account)
@@ -27,7 +32,7 @@ feature 'Customer can see Personal schedules' do
   scenario 'and there are no schedules in his unit' do
     unit = create(:unit)
     customer = create(:customer, unit: unit)
-
+    customer_profile = create(:profile, account: customer)
 
     login_as(customer, scope: :account)
     visit root_path

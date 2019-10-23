@@ -79,6 +79,6 @@ feature 'Schedule receives account ID' do
 
     visit my_schedule_path
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq units_path
   end
 end

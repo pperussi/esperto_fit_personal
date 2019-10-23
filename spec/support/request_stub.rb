@@ -1,60 +1,68 @@
 module RequestStub
   def cpf_status
     filename = 'cpf_status.json'
-    url      = 'http://academy.com.br/api/v1/clients/consult_cpf/99999999999'
     json_response = File.read(Rails.root.join('spec', 'support', "#{filename}"))
 
-    stub_request(:get, url)
-      .with(
-        headers: {
-          'Accept'=>'*/*',
-          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'User-Agent'=>'Faraday v0.15.4'
-           }
-      )
-      .to_return(status: 302, body: json_response, headers:  {'Content-Type': 'application/json'})
+    stub_request(:get, "http://esperto_fit_academy-master_web_1:4000/api/v1/clients/consult_cpf/99999999999").
+         with(
+           headers: {
+       	  'Accept'=>'*/*',
+       	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       	  'Content-Type'=>'application/json',
+       	  'Password'=>'eyJhbGciOiJIUzI1NiJ9.IidFc3BlcnRvRml0R3ltJyI.u6afO6F22Hbx32vL2uefWXI1rEj_iYIFUHdeG22sRD0',
+       	  'User-Agent'=>'Faraday v0.17.0'
+           }).
+
+      to_return(status: 302, body: json_response, headers:  {'Content-Type': 'application/json'})
   end
 
   def cpf_status_inactive
     filename = 'cpf_inactive.json'
-    url      = 'http://academy.com.br/api/v1/clients/consult_cpf/88888888888'
     json_response = File.read(Rails.root.join('spec', 'support', "#{filename}"))
 
-    stub_request(:get, url)
-      .with(
-        headers: {
-          'Accept'=>'*/*',
-          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'User-Agent'=>'Faraday v0.15.4'
-           }
-      )
+    stub_request(:get, "http://esperto_fit_academy-master_web_1:4000/api/v1/clients/consult_cpf/88888888888").
+    with(
+      headers: {
+      'Accept'=>'*/*',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Content-Type'=>'application/json',
+      'Password'=>'eyJhbGciOiJIUzI1NiJ9.IidFc3BlcnRvRml0R3ltJyI.u6afO6F22Hbx32vL2uefWXI1rEj_iYIFUHdeG22sRD0',
+      'User-Agent'=>'Faraday v0.17.0'
+      })
       .to_return(status: 302, body: json_response, headers:  {'Content-Type': 'application/json'})
   end
 
   def cpf_status_empty
     filename = 'cpf_status.json'
-    url      = 'http://academy.com.br/api/v1/clients/consult_cpf/12345678908'
     json_response = File.read(Rails.root.join('spec', 'support', "#{filename}"))
 
-    stub_request(:get, url)
-      .with(
-        headers: {
-          'Accept'=>'*/*',
-          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'User-Agent'=>'Faraday v0.15.4'
-           }
-      )
+    stub_request(:get, "http://esperto_fit_academy-master_web_1:4000/api/v1/clients/consult_cpf/12345678908").
+         with(
+           headers: {
+       	  'Accept'=>'*/*',
+       	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       	  'Content-Type'=>'application/json',
+       	  'Password'=>'eyJhbGciOiJIUzI1NiJ9.IidFc3BlcnRvRml0R3ltJyI.u6afO6F22Hbx32vL2uefWXI1rEj_iYIFUHdeG22sRD0',
+       	  'User-Agent'=>'Faraday v0.17.0'
+           })
       .to_return(status: 404, body: 'Não encontrado' , headers:  {})
   end
 
   def list_gyms
     filename = 'gyms.json'
-    url      = 'http://academy.com.br/api/v1/gyms'
     json_response = JSON.parse(
       File.read(Rails.root.join('spec', 'support', "#{filename}")
     ), symbolize_names: true)
-    stub_request(:get, url).
-      to_return(status: 200, body: json_response)
+    stub_request(:get, "http://esperto_fit_academy-master_web_1:4000/api/v1/gyms").
+         with(
+           headers: {
+       	  'Accept'=>'*/*',
+       	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       	  'Content-Type'=>'application/json',
+       	  'Password'=>'eyJhbGciOiJIUzI1NiJ9.IidFc3BlcnRvRml0R3ltJyI.u6afO6F22Hbx32vL2uefWXI1rEj_iYIFUHdeG22sRD0',
+       	  'User-Agent'=>'Faraday v0.17.0'
+           }).
+      to_return(status: 200, body: json_response, headers:{})
   end
 
   def list_payments
@@ -67,9 +75,16 @@ module RequestStub
   end
   def list_plans(id)
     filename = 'plans.json'
-    url      = "http://academy.com.br/api/v1/gyms/#{id}/plans"
+    url      = "http://esperto_fit_academy-master_web_1:4000/api/v1/gyms/#{id}/plans"
     json_response = File.read(Rails.root.join('spec', 'support', "#{filename}"))
     stub_request(:get, url).
+         with(
+           headers: {
+       	  'Accept'=>'*/*',
+       	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       	  'Content-Type'=>'application/json',
+       	  'User-Agent'=>'Faraday v0.17.0'
+           }).
       to_return(status: 200, body: json_response, headers: {'Content-Type': 'application/json'})
   end
 
