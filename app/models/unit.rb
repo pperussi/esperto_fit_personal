@@ -11,6 +11,7 @@ class Unit < ApplicationRecord
 
 
   def self.load_api
+    Gym.login
     Gym.all.each do |gym|
       unity = Unit.find_by(ex_gym_ref: gym.id, name: gym.name)
       if unity.blank?
@@ -33,4 +34,6 @@ class Unit < ApplicationRecord
       end
     end
   end
+
+
 end

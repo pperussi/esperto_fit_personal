@@ -25,11 +25,6 @@ class Account < ApplicationRecord
 
   def banished?
     response = GymRequester.call(url: url)
-    # response = EspertoAcademy.client.get do |req|
-    #   password = ENV['PASSWORD']
-    #   req.headers['password'] = Auth.issue(password)
-    #   req.url 
-    #   end
     return false if response.status == 404
 
     response.body[:status] == 'banished'
@@ -42,11 +37,6 @@ class Account < ApplicationRecord
 
   def inactive?
     response = GymRequester.call(url: url)
-    # response = EspertoAcademy.client.get do |req|
-    #   password = ENV['PASSWORD']
-    #   req.headers['password'] = Auth.issue(password)
-    #   req.url "clients/consult_cpf/#{self.document}"
-    # end
     return false if response.status == 404
 
     response.body[:status] == 'inactive' 

@@ -13,12 +13,17 @@ class Gym
 
   def self.all
     response = GymRequester.call(url: URL)
-    # response = EspertoAcademy.client.get do |req|
-    #   password = ENV['PASSWORD']
-    #   req.headers['password'] = Auth.issue(password)
-    #   req.url 'gyms'
     return response.body.map { |gym| new(gym) } if response.status == 200
 
+    []
+  rescue Faraday::ConnectionFailed
+    []
+  end
+
+  def self.login
+    response = GymRequester.login
+    token = response.body if response.status == 200
+    byebug
     []
   rescue Faraday::ConnectionFailed
     []

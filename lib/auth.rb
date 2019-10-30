@@ -10,11 +10,4 @@ class Auth
         AUTH_SECRET,
         ALGORITHM)
   end
-
-  def self.decode(token)
-    JWT.decode(token, 
-        AUTH_SECRET, 
-        true, 
-        { algorithm: ALGORITHM }).first    
-  end
 end

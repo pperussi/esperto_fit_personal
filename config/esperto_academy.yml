@@ -1,9 +1,9 @@
 development:
-  base_url: http://esperto_fit_academy-master_web_1:4000
+  academy_url: http://esperto_fit_academy_web_1:4000
   payment_url: http://esperto_fit_payments-master_web_1:6000
 # production:
 #   base_url: https://example.com.br/
 #   payment_url: http://0.0.0.0:5000
 test:
-  base_url: http://esperto_fit_academy-master_web_1:4000
+  academy_url: http://esperto_fit_academy_web_1:4000
   payment_url: http://esperto_fit_payments-master_web_1:6000
