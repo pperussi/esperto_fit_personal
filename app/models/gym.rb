@@ -23,7 +23,6 @@ class Gym
   def self.login
     response = GymRequester.login
     token = response.body if response.status == 200
-    byebug
     []
   rescue Faraday::ConnectionFailed
     []

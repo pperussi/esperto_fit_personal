@@ -3,13 +3,13 @@ module RequestStub
     filename = 'cpf_status.json'
     json_response = File.read(Rails.root.join('spec', 'support', "#{filename}"))
 
-    stub_request(:get, "http://esperto_fit_academy-master_web_1:4000/api/v1/clients/consult_cpf/99999999999").
+    stub_request(:get, "http://esperto_fit_academy_web_1:4000/api/v1/clients/consult_cpf/99999999999").
          with(
            headers: {
        	  'Accept'=>'*/*',
        	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
        	  'Content-Type'=>'application/json',
-       	  'Password'=>'eyJhbGciOiJIUzI1NiJ9.IidFc3BlcnRvRml0R3ltJyI.u6afO6F22Hbx32vL2uefWXI1rEj_iYIFUHdeG22sRD0',
+       	  'Token'=> token,
        	  'User-Agent'=>'Faraday v0.17.0'
            }).
 
@@ -20,13 +20,13 @@ module RequestStub
     filename = 'cpf_inactive.json'
     json_response = File.read(Rails.root.join('spec', 'support', "#{filename}"))
 
-    stub_request(:get, "http://esperto_fit_academy-master_web_1:4000/api/v1/clients/consult_cpf/88888888888").
+    stub_request(:get, "http://esperto_fit_academy_web_1:4000/api/v1/clients/consult_cpf/88888888888").
     with(
       headers: {
       'Accept'=>'*/*',
       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
       'Content-Type'=>'application/json',
-      'Password'=>'eyJhbGciOiJIUzI1NiJ9.IidFc3BlcnRvRml0R3ltJyI.u6afO6F22Hbx32vL2uefWXI1rEj_iYIFUHdeG22sRD0',
+      'Token'=>'eyJhbGciOiJIUzI1NiJ9.IidFc3BlcnRvRml0R3ltJyI.u6afO6F22Hbx32vL2uefWXI1rEj_iYIFUHdeG22sRD0',
       'User-Agent'=>'Faraday v0.17.0'
       })
       .to_return(status: 302, body: json_response, headers:  {'Content-Type': 'application/json'})
@@ -36,13 +36,13 @@ module RequestStub
     filename = 'cpf_status.json'
     json_response = File.read(Rails.root.join('spec', 'support', "#{filename}"))
 
-    stub_request(:get, "http://esperto_fit_academy-master_web_1:4000/api/v1/clients/consult_cpf/12345678908").
+    stub_request(:get, "http://esperto_fit_academy_web_1:4000/api/v1/clients/consult_cpf/12345678908").
          with(
            headers: {
        	  'Accept'=>'*/*',
        	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
        	  'Content-Type'=>'application/json',
-       	  'Password'=>'eyJhbGciOiJIUzI1NiJ9.IidFc3BlcnRvRml0R3ltJyI.u6afO6F22Hbx32vL2uefWXI1rEj_iYIFUHdeG22sRD0',
+       	  'Token'=>'eyJhbGciOiJIUzI1NiJ9.IidFc3BlcnRvRml0R3ltJyI.u6afO6F22Hbx32vL2uefWXI1rEj_iYIFUHdeG22sRD0',
        	  'User-Agent'=>'Faraday v0.17.0'
            })
       .to_return(status: 404, body: 'Não encontrado' , headers:  {})
@@ -53,13 +53,13 @@ module RequestStub
     json_response = JSON.parse(
       File.read(Rails.root.join('spec', 'support', "#{filename}")
     ), symbolize_names: true)
-    stub_request(:get, "http://esperto_fit_academy-master_web_1:4000/api/v1/gyms").
+    stub_request(:get, "http://esperto_fit_academy_web_1:4000/api/v1/gyms").
          with(
            headers: {
        	  'Accept'=>'*/*',
        	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
        	  'Content-Type'=>'application/json',
-       	  'Password'=>'eyJhbGciOiJIUzI1NiJ9.IidFc3BlcnRvRml0R3ltJyI.u6afO6F22Hbx32vL2uefWXI1rEj_iYIFUHdeG22sRD0',
+       	  'Token'=>'eyJhbGciOiJIUzI1NiJ9.IidFc3BlcnRvRml0R3ltJyI.u6afO6F22Hbx32vL2uefWXI1rEj_iYIFUHdeG22sRD0',
        	  'User-Agent'=>'Faraday v0.17.0'
            }).
       to_return(status: 200, body: json_response, headers:{})
@@ -73,9 +73,10 @@ module RequestStub
     stub_request(:get, url)
       .to_return(status: 200, body: json_response, headers:  {'Content-Type': 'application/json'})
   end
+  
   def list_plans(id)
     filename = 'plans.json'
-    url      = "http://esperto_fit_academy-master_web_1:4000/api/v1/gyms/#{id}/plans"
+    url      = "http://esperto_fit_academy_web_1:4000/api/v1/gyms/#{id}/plans"
     json_response = File.read(Rails.root.join('spec', 'support', "#{filename}"))
     stub_request(:get, url).
          with(

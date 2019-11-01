@@ -45,6 +45,7 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   config.include RequestStub
+  config.include HeaderGenerator
 
   config.include Warden::Test::Helpers
 
