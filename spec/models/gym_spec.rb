@@ -32,7 +32,6 @@ describe Gym do
     it 'loads all gyms' do 
       json_response = [{:id=>1, :created_at=>"2019-10-16T23:09:34.572Z", :updated_at=>"2019-10-16T23:09:37.395Z", :name=>"Academia Paulista", :cod=>1, :open_hour=>"08:00", :close_hour=>"22:00", :working_days=>"segunda à sexta", :address=>"Av. Paulista, 123"}, {:id=>2, :created_at=>"2019-10-16T23:09:36.179Z", :updated_at=>"2019-10-16T23:09:38.196Z", :name=>"Academia Consolação", :cod=>2, :open_hour=>"08:00", :close_hour=>"22:00", :working_days=>"segunda à sexta", :address=>"Av. Consolação, 123"}, {:id=>3, :created_at=>"2019-10-16T23:09:36.217Z", :updated_at=>"2019-10-16T23:09:38.292Z", :name=>"Academia Madalena", :cod=>3, :open_hour=>"08:00", :close_hour=>"22:00", :working_days=>"segunda à sexta", :address=>"Av. Madalena, 123"}]
       headers = new_header
-      byebug
       stub_request(:get, "http://esperto_fit_academy_web_1:4000/api/v1/gyms").
       with(
         headers: headers).
